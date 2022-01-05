@@ -1,0 +1,115 @@
+colorswatch {
+  // This widget is made of two boxes one on top of the other, the lower box is colorswatch {} the other one
+  // is colorswatch overlay {}, colorswatch has the programmatically set background, so most of the style is
+  // applied to the overlay box.
+
+  transition: $focus_transition;
+
+  @include focus-ring($width: 4px, $offset: -2px);
+
+  $_colorswatch_radius: 5px;
+
+  // base color corners rounding
+  // to avoid the artifacts caused by rounded corner anti-aliasing the base color
+  // sports a bigger radius.
+  // nth-child is needed by the custom color strip.
+
+  &.top {
+    border-top-left-radius: $_colorswatch_radius + 0.5px;
+    border-top-right-radius: $_colorswatch_radius + 0.5px;
+
+    > overlay {
+      border-top-left-radius: $_colorswatch_radius;
+      border-top-right-radius: $_colorswatch_radius;
+    }
+  }
+
+  &.bottom {
+    border-bottom-left-radius: $_colorswatch_radius + 0.5px;
+    border-bottom-right-radius: $_colorswatch_radius + 0.5px;
+
+    > overlay {
+      border-bottom-left-radius: $_colorswatch_radius;
+      border-bottom-right-radius: $_colorswatch_radius;
+    }
+  }
+
+  &.left,
+  &:first-child:not(.top) {
+    border-top-left-radius: $_colorswatch_radius + 0.5px;
+    border-bottom-left-radius: $_colorswatch_radius + 0.5px;
+
+    > overlay {
+      border-top-left-radius: $_colorswatch_radius;
+      border-bottom-left-radius: $_colorswatch_radius;
+    }
+  }
+
+  &.right,
+  &:last-child:not(.bottom) {
+    border-top-right-radius: $_colorswatch_radius + 0.5px;
+    border-bottom-right-radius: $_colorswatch_radius + 0.5px;
+
+    > overlay {
+      border-top-right-radius: $_colorswatch_radius;
+      border-bottom-right-radius: $_colorswatch_radius;
+    }
+  }
+
+  @if $contrast == 'high' {
+    > overlay {
+      box-shadow: inset 0 0 0 1px transparentize($text_color, .5);
+    }
+  }
+
+  &.dark > overlay {
+    color: white;
+  }
+
+  &.light > overlay {
+    color: transparentize(black, .25);
+
+    @if $variant == 'light' and $contrast != 'high' {
+      box-shadow: inset 0 0 0 1px transparentize(black, 0.9);
+    }
+  }
+
+  &:drop(active) {
+    &.light > overlay {
+      box-shadow: inset 0 0 0 2px $drop_target_color;
+    }
+
+    &.dark > overlay {
+      box-shadow: inset 0 0 0 2px $drop_target_color;
+    }
+  }
+
+  &#add-color-button {
+    > overlay {
+      @extend %button_basic;
+
+      border-radius: $_colorswatch_radius 0 0 $_colorswatch_radius;
+    }
+
+    &:only-child > overlay { border-radius: $_colorswatch_radius; }
+  }
+
+  &:disabled {
+    filter: opacity(.5);
+  }
+
+  &#editor-color-sample {
+    border-radius: 4px;
+
+    > overlay { border-radius: 4.5px; }
+  }
+}
+
+plane {
+  transition: $focus_transition;
+
+  @include focus-ring($offset: 2px, $outer: true);
+}
+
+// colorscale popup
+colorchooser .popover.osd { border-radius: 5px; }
