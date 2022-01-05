@@ -14,7 +14,7 @@ THEME_DIR="/usr/share/grub/themes"
 REO_DIR="$(cd $(dirname $0) && pwd)"
 }
 
-THEME_VARIANTS=('tela' 'vimix' 'stylish' 'whitesur', 'juan')
+THEME_VARIANTS=('tela' 'vimix' 'stylish' 'whitesur' 'juan')
 ICON_VARIANTS=('color' 'white' 'whitesur')
 SCREEN_VARIANTS=('1080p' '2k' '4k' 'ultrawide' 'ultrawide2k')
 
@@ -56,7 +56,7 @@ usage() {
   printf "%s\n" "Usage: ${0##*/} [OPTIONS...]"
   printf "\n%s\n" "OPTIONS:"
   printf "  %-25s%s\n" "-b, --boot" "install grub theme into /boot/grub/themes"
-  printf "  %-25s%s\n" "-t, --theme" "theme variant(s) [tela|vimix|stylish|whitesur] (default is tela)"
+  printf "  %-25s%s\n" "-t, --theme" "theme variant(s) [tela|vimix|stylish|whitesur|juan] (default is tela)"
   printf "  %-25s%s\n" "-i, --icon" "icon variant(s) [color|white|whitesur] (default is color)"
   printf "  %-25s%s\n" "-s, --screen" "screen display variant(s) [1080p|2k|4k|ultrawide|ultrawide2k] (default is 1080p)"
   printf "  %-25s%s\n" "-r, --remove" "Remove theme (must add theme name option)"
@@ -263,6 +263,7 @@ run_dialog() {
         2) theme="tela"       ;;
         3) theme="stylish"    ;;
         4) theme="whitesur"   ;;
+        5) theme="juan"   ;;
         *) operation_canceled ;;
      esac
 
@@ -463,6 +464,10 @@ while [[ $# -gt 0 ]]; do
             ;;
           whitesur)
             themes+=("${THEME_VARIANTS[3]}")
+            shift
+            ;;
+          juan)
+            themes+=("${THEME_VARIANTS[4]}")
             shift
             ;;
           -*|--*)
