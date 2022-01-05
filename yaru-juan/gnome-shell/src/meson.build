@@ -10,6 +10,7 @@ styles = [
 variants = [
   'light',
   'dark',
+  'juan',
 ]
 
 theme_css = []
